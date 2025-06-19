@@ -7,7 +7,12 @@ PORT = 12345        # Puerto del servidor
 
 # Crea el socket TCP del cliente (AF_INET para IPv4, SOCK_STREAM para TCP)
 cliente = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-cliente.connect((HOST, PORT))  # Establecer conexión con el servidor
+
+try:
+    cliente.connect((HOST, PORT)) # Establecer conexión con el servidor
+except ConnectionRefusedError:
+    print("\n[!] No se pudo conectar al servidor. Asegúrate de que el servidor esté en ejecución.")
+    exit()
 
 # Variable para controlar el estado de la conexión
 conectado = True
@@ -41,12 +46,22 @@ def recibir():
 # Función para enviar mensajes al servidor
 def enviar():
     global conectado
-    nombre = input("\nEscribe tu nombre: ")  # Solicita nombre del usuario
+    try:
+        nombre = input("\nEscribe tu nombre: ")  # Solicita nombre del usuario
+    except EOFError:
+        print("\n[!] Entrada interrumpida. Cancelando conexión...")
+        cliente.close()
+        return
     cliente.sendall(f"\n{nombre} ha entrado al chat.".encode())  # Notifica ingreso
 
     while conectado: 
-        mensaje = input("\nTu: ").strip() # Leer mensaje desde consola
-        
+        try:
+            mensaje = input("\nTu: ").strip() # Leer mensaje desde consola
+        except EOFError:
+            print("\n[!] Entrada interrumpida. Cerrando cliente...")
+            cliente.close()
+            conectado = False
+            break
         if not conectado:
             break  # Evita seguir si el servidor se ha cerrado
         if not mensaje:
