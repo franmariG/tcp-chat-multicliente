@@ -15,6 +15,7 @@ def manejar_cliente(cliente_socket, direccion):
             mensaje = cliente_socket.recv(1024)  # Espera a recibir un mensaje (hasta 1024 bytes)
             if not mensaje:
                 break  # Si no se recibe nada, el cliente se desconectó
+                
             # Reenvia el mensaje a todos los demás clientes conectados
             for c in clientes:
                 if c != cliente_socket:
