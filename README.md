@@ -19,7 +19,7 @@ Incluye dos formas de uso para los clientes:
 - Evita el envío de mensajes vacíos.
 - Muestra mensajes del servidor en tiempo real.
 
-### Cliente con Interfaz Gráfica (`_cliente_gui.py`)
+### Cliente con Interfaz Gráfica (`cliente_gui.py`)
 - Interfaz usando `CustomTkinter`.
 - Área de chat con scroll, colores y mensajes diferenciados.
 - Botones de conectar, enviar y salir.
@@ -53,7 +53,7 @@ python cliente.py
 * Opción GUI:
 
 ```bash
-python chat_client_gui.py
+python cliente_gui.py
 ```
 Puedes abrir múltiples instancias del cliente para simular varios usuarios.
 
@@ -69,9 +69,9 @@ Puedes abrir múltiples instancias del cliente para simular varios usuarios.
 
 ```bash
 📁 tcp-chat-multicliente
-├── chat_server.py          # Servidor TCP
-├── chat_client.py          # Cliente de consola
-├── chat_client_gui.py      # Cliente con interfaz gráfica (GUI)
+├── servidor.py          # Servidor TCP
+├── cliente.py          # Cliente de consola
+├── cliente_gui.py      # Cliente con interfaz gráfica (GUI)
 └── README.md               # Este documento
 ```
 
